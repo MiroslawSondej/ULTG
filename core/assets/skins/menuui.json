@@ -1,0 +1,9 @@
+{
+  "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+    "default": {
+      "up": "button_bg",
+      "font": { "file": "default.fnt" },
+      "fontColor": { "r": 1, "g": 1, "b": 1, "a": 1 }
+    }
+  }
+}
