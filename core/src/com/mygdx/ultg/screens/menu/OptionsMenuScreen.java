@@ -6,14 +6,14 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.ultg.MyGdxGame;
 import com.mygdx.ultg.Utility;
 
-public class MainMenuScreen extends ScreenAdapter  {
+public class OptionsMenuScreen extends ScreenAdapter {
     MyGdxGame _game;
     SpriteBatch _batch;
     Stage _stage;
@@ -25,14 +25,13 @@ public class MainMenuScreen extends ScreenAdapter  {
 
     HorizontalGroup _layoutGroup;
 
-    TextButton[] _menuButton = new TextButton[3];
+    TextButton[] _menuButton = new TextButton[1];
     int _checkedButtonIndex = 0;
 
-    public MainMenuScreen(MyGdxGame game) {
+    public OptionsMenuScreen(MyGdxGame game) {
         _game = game;
         _batch = new SpriteBatch();
         _stage = new Stage();
-
 
         // UI
         _layoutGroup = new HorizontalGroup();
@@ -40,18 +39,14 @@ public class MainMenuScreen extends ScreenAdapter  {
         // Logo
         _logoTexture = new Texture("menu/logo.png");
         _logoImage = new Image(_logoTexture);
-        _logoImage.setPosition( Gdx.graphics.getWidth()/2 - _logoImage.getWidth()/2, Gdx.graphics.getHeight()/2 + 128);
+        _logoImage.setPosition(Gdx.graphics.getWidth() / 2 - _logoImage.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 128);
 
         // Buttons
-        _menuButton[0] = new TextButton("Play", Utility.MENUUI_SKIN);
-        _menuButton[1] = new TextButton("Options", Utility.MENUUI_SKIN);
-        _menuButton[2] = new TextButton("Exit", Utility.MENUUI_SKIN);
+        _menuButton[0] = new TextButton("Return", Utility.MENUUI_SKIN);
 
         _menuButton[_checkedButtonIndex].setChecked(true);
 
         _layoutGroup.addActor(_menuButton[0]);
-        _layoutGroup.addActor(_menuButton[1]);
-        _layoutGroup.addActor(_menuButton[2]);
 
         _layoutGroup.wrap(true);
         _layoutGroup.wrapSpace(20);
@@ -84,16 +79,8 @@ public class MainMenuScreen extends ScreenAdapter  {
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             switch(_checkedButtonIndex) {
-                case 0: { // PLAY BUTTON
-
-                 break;
-                }
-                case 1: { // OPTIONS BUTTON
-                    _game.enterScreen(MyGdxGame.EGameScreen.OPTIONSMENU);
-                    break;
-                }
-                case 2: { // EXIT BUTTON
-                    Gdx.app.exit();
+                case 0: {
+                    _game.leaveCurrentScreen();
                     break;
                 }
             }
