@@ -85,8 +85,8 @@ public class MainMenuScreen extends ScreenAdapter  {
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             switch(_checkedButtonIndex) {
                 case 0: { // PLAY BUTTON
-
-                 break;
+                    _game.enterScreen(MyGdxGame.EGameScreen.PLAYMENU);
+                    break;
                 }
                 case 1: { // OPTIONS BUTTON
                     _game.enterScreen(MyGdxGame.EGameScreen.OPTIONSMENU);
