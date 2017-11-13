@@ -10,4 +10,6 @@ public final class Utility {
 
     public static TextureAtlas MENUUI_TEXTUREATLAS = new TextureAtlas(MENUUI_TEXTURE_ATLAS_PATH);
     public static Skin MENUUI_SKIN = new Skin(Gdx.files.internal(MENUUI_SKIN_PATH), MENUUI_TEXTUREATLAS);
+
+    public final static String SETTINGS_FILE_NAME = "settings.xml";
 }

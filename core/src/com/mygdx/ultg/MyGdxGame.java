@@ -1,7 +1,9 @@
 package com.mygdx.ultg;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.mygdx.ultg.entities.Settings;
 import com.mygdx.ultg.screens.menu.MainMenuScreen;
 import com.mygdx.ultg.screens.menu.OptionsMenuScreen;
 
@@ -9,7 +11,8 @@ import java.util.Stack;
 
 public class MyGdxGame extends Game {
 
-	Stack<Screen> screenStack = new Stack<Screen>();
+	Settings _gameSettings;
+	Stack<Screen> _screenStack = new Stack<Screen>();
 
 	public enum EGameScreen {
 		MAINMENU,
@@ -19,6 +22,13 @@ public class MyGdxGame extends Game {
 
 	@Override
 	public void create () {
+		// Load settings
+		_gameSettings = SettingsManager.load(Utility.SETTINGS_FILE_NAME);
+		Gdx.app.log("", "Settings loaded:");
+		Gdx.app.log("SETTINGS", "\t Volume: " + _gameSettings.getVolume());
+		Gdx.app.log("SETTINGS", "\t Language: " + _gameSettings.getLanguage());
+
+		// Create starting screen
 		this.enterScreen(EGameScreen.MAINMENU);
 	}
 
@@ -45,7 +55,7 @@ public class MyGdxGame extends Game {
 
 	public void enterScreen(EGameScreen gameScreen) {
 		if(this.getScreen() != null) {
-			screenStack.push(this.getScreen());
+			_screenStack.push(this.getScreen());
 		}
 
 		Screen newScreen = createScreen(gameScreen);
@@ -54,8 +64,12 @@ public class MyGdxGame extends Game {
 		}
 	}
 	public void leaveCurrentScreen() {
-		if(!screenStack.empty()) {
-			this.setScreen(screenStack.pop());
+		if(!_screenStack.empty()) {
+			this.setScreen(_screenStack.pop());
 		}
+	}
+
+	public Settings getGameSettings() {
+		return _gameSettings;
 	}
 }

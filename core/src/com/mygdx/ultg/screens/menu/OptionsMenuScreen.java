@@ -20,12 +20,19 @@ public class OptionsMenuScreen extends ScreenAdapter {
 
     Texture _logoTexture;
 
+    enum EButton {
+        VOLUME,
+        LANGUAGE,
+
+        RETURN // always last
+    };
+
     // UI
     Image _logoImage;
 
     HorizontalGroup _layoutGroup;
 
-    TextButton[] _menuButton = new TextButton[1];
+    TextButton[] _menuButton = new TextButton[3];
     int _checkedButtonIndex = 0;
 
     public OptionsMenuScreen(MyGdxGame game) {
@@ -42,15 +49,21 @@ public class OptionsMenuScreen extends ScreenAdapter {
         _logoImage.setPosition(Gdx.graphics.getWidth() / 2 - _logoImage.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 128);
 
         // Buttons
-        _menuButton[0] = new TextButton("Return", Utility.MENUUI_SKIN);
-
+        _menuButton[0] = new TextButton("Volume (100)", Utility.MENUUI_SKIN);
         _menuButton[_checkedButtonIndex].setChecked(true);
-
         _layoutGroup.addActor(_menuButton[0]);
+
+        _menuButton[1] = new TextButton("Language (English)", Utility.MENUUI_SKIN);
+        _layoutGroup.addActor(_menuButton[1]);
+
+        _menuButton[2] = new TextButton("Return", Utility.MENUUI_SKIN);
+        _layoutGroup.addActor(_menuButton[2]);
+
+
 
         _layoutGroup.wrap(true);
         _layoutGroup.wrapSpace(20);
-        _layoutGroup.setPosition( Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2 - 64);
+        _layoutGroup.setPosition( Gdx.graphics.getWidth()/2 - 160, Gdx.graphics.getHeight()/2 - 64);
 
         _stage.addActor(_logoImage);
         _stage.addActor(_layoutGroup);
@@ -78,11 +91,8 @@ public class OptionsMenuScreen extends ScreenAdapter {
             _menuButton[_checkedButtonIndex].setChecked(true);
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            switch(_checkedButtonIndex) {
-                case 0: {
-                    _game.leaveCurrentScreen();
-                    break;
-                }
+            if(_checkedButtonIndex == EButton.RETURN.ordinal()) {
+                _game.leaveCurrentScreen();
             }
         }
     }
