@@ -9,9 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.ultg.MyGdxGame;
 import com.mygdx.ultg.Utility;
+import com.mygdx.ultg.ui.widgets.TextButton;
 
 public class MainMenuScreen extends ScreenAdapter  {
     MyGdxGame _game;
@@ -47,7 +47,7 @@ public class MainMenuScreen extends ScreenAdapter  {
         _menuButton[1] = new TextButton("Options", Utility.MENUUI_SKIN);
         _menuButton[2] = new TextButton("Exit", Utility.MENUUI_SKIN);
 
-        _menuButton[_checkedButtonIndex].setChecked(true);
+        _menuButton[_checkedButtonIndex].setOver(true);
 
         _layoutGroup.addActor(_menuButton[0]);
         _layoutGroup.addActor(_menuButton[1]);
@@ -63,24 +63,24 @@ public class MainMenuScreen extends ScreenAdapter  {
 
     private void onUpdate() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            _menuButton[_checkedButtonIndex].setChecked(false);
+            _menuButton[_checkedButtonIndex].setOver(false);
 
             _checkedButtonIndex++;
             if(_checkedButtonIndex >= _menuButton.length) {
                 _checkedButtonIndex = 0;
             }
 
-            _menuButton[_checkedButtonIndex].setChecked(true);
+            _menuButton[_checkedButtonIndex].setOver(true);
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            _menuButton[_checkedButtonIndex].setChecked(false);
+            _menuButton[_checkedButtonIndex].setOver(false);
 
             _checkedButtonIndex--;
             if(_checkedButtonIndex < 0) {
                 _checkedButtonIndex = _menuButton.length - 1;
             }
 
-            _menuButton[_checkedButtonIndex].setChecked(true);
+            _menuButton[_checkedButtonIndex].setOver(true);
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             switch(_checkedButtonIndex) {

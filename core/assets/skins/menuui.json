@@ -3,7 +3,8 @@
     "default": {
       "font": { "file": "fonts/8bit.fnt" },
       "fontColor": { "r": 1, "g": 1, "b": 1, "a": 1 },
-      "checkedFontColor": {"r": 0.8, "g": 0.4, "b": 0.6, "a": 1}
+      "checkedFontColor": {"r": 1, "g": 1, "b": 1, "a": 1},
+      "overFontColor": {"r": 0.8, "g": 0.4, "b": 0.6, "a": 1}
     }
   }
 }

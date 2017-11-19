@@ -9,9 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.ultg.ui.widgets.TextButton;
 import com.mygdx.ultg.MyGdxGame;
 import com.mygdx.ultg.Utility;
+import com.mygdx.ultg.ui.widgets.OptionTextButton;
+import com.mygdx.ultg.ui.widgets.OptionWidget;
+
+import java.util.ArrayList;
 
 public class OptionsMenuScreen extends ScreenAdapter {
     MyGdxGame _game;
@@ -32,7 +36,7 @@ public class OptionsMenuScreen extends ScreenAdapter {
 
     HorizontalGroup _layoutGroup;
 
-    TextButton[] _menuButton = new TextButton[3];
+    ArrayList<TextButton> _menuButton = new ArrayList<TextButton>();
     int _checkedButtonIndex = 0;
 
     public OptionsMenuScreen(MyGdxGame game) {
@@ -49,17 +53,14 @@ public class OptionsMenuScreen extends ScreenAdapter {
         _logoImage.setPosition(Gdx.graphics.getWidth() / 2 - _logoImage.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 128);
 
         // Buttons
-        _menuButton[0] = new TextButton("Volume (100)", Utility.MENUUI_SKIN);
-        _menuButton[_checkedButtonIndex].setChecked(true);
-        _layoutGroup.addActor(_menuButton[0]);
+        _menuButton.add(new TextButton("Volume", Utility.MENUUI_SKIN));
+        _layoutGroup.addActor(_menuButton.get(0));
 
-        _menuButton[1] = new TextButton("Language (English)", Utility.MENUUI_SKIN);
-        _layoutGroup.addActor(_menuButton[1]);
+        _menuButton.add(new OptionTextButton("Volume", Utility.MENUUI_SKIN, OptionWidget.ValuesType.NUMBERS, 0, 100));
+        _layoutGroup.addActor(_menuButton.get(1));
 
-        _menuButton[2] = new TextButton("Return", Utility.MENUUI_SKIN);
-        _layoutGroup.addActor(_menuButton[2]);
-
-
+        _menuButton.add(new TextButton("Return", Utility.MENUUI_SKIN));
+        _layoutGroup.addActor(_menuButton.get(2));
 
         _layoutGroup.wrap(true);
         _layoutGroup.wrapSpace(20);
@@ -71,24 +72,24 @@ public class OptionsMenuScreen extends ScreenAdapter {
 
     private void onUpdate() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            _menuButton[_checkedButtonIndex].setChecked(false);
+            _menuButton.get(_checkedButtonIndex).setOver(false);
 
             _checkedButtonIndex++;
-            if(_checkedButtonIndex >= _menuButton.length) {
+            if(_checkedButtonIndex >= _menuButton.size()) {
                 _checkedButtonIndex = 0;
             }
 
-            _menuButton[_checkedButtonIndex].setChecked(true);
+            _menuButton.get(_checkedButtonIndex).setOver(true);
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            _menuButton[_checkedButtonIndex].setChecked(false);
+            _menuButton.get(_checkedButtonIndex).setOver(false);
 
             _checkedButtonIndex--;
             if(_checkedButtonIndex < 0) {
-                _checkedButtonIndex = _menuButton.length - 1;
+                _checkedButtonIndex = _menuButton.size() - 1;
             }
 
-            _menuButton[_checkedButtonIndex].setChecked(true);
+            _menuButton.get(_checkedButtonIndex).setOver(true);
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if(_checkedButtonIndex == EButton.RETURN.ordinal()) {
