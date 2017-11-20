@@ -2,10 +2,13 @@ package com.mygdx.ultg.screens.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,7 +17,6 @@ import com.mygdx.ultg.MyGdxGame;
 import com.mygdx.ultg.Utility;
 import com.mygdx.ultg.ui.widgets.OptionTextButton;
 import com.mygdx.ultg.ui.widgets.OptionWidget;
-
 import java.util.ArrayList;
 
 public class OptionsMenuScreen extends ScreenAdapter {
@@ -53,14 +55,44 @@ public class OptionsMenuScreen extends ScreenAdapter {
         _logoImage.setPosition(Gdx.graphics.getWidth() / 2 - _logoImage.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 128);
 
         // Buttons
-        _menuButton.add(new TextButton("Volume", Utility.MENUUI_SKIN));
+        OptionTextButton volumeButton = new OptionTextButton("Volume", Utility.MENUUI_SKIN, OptionWidget.ValuesType.NUMBERS, 0, 100);
+        _menuButton.add(volumeButton);
+        volumeButton.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                Gdx.app.log("keyDown ", String.valueOf(keycode));
+                OptionTextButton button = (OptionTextButton)event.getRelatedActor();
+                if (button != null) {
+                    if (button.isOver()) {
+                        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                            button.getOptionWidget().previousValue();
+                        }
+                        else if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                            button.getOptionWidget().nextValue();
+                        }
+                    }
+                }
+                return super.keyDown(event, keycode);
+            }
+        });
         _layoutGroup.addActor(_menuButton.get(0));
 
-        _menuButton.add(new OptionTextButton("Volume", Utility.MENUUI_SKIN, OptionWidget.ValuesType.NUMBERS, 0, 100));
+
+
+        ArrayList<String> languageValues = new ArrayList<String>();
+        languageValues.add("English");
+        languageValues.add("Polish");
+
+        OptionTextButton languageButton = new OptionTextButton("Language", Utility.MENUUI_SKIN, OptionWidget.ValuesType.STRINGS, languageValues);
+        _menuButton.add(languageButton);
         _layoutGroup.addActor(_menuButton.get(1));
+
+
 
         _menuButton.add(new TextButton("Return", Utility.MENUUI_SKIN));
         _layoutGroup.addActor(_menuButton.get(2));
+
+
 
         _layoutGroup.wrap(true);
         _layoutGroup.wrapSpace(20);
@@ -68,8 +100,9 @@ public class OptionsMenuScreen extends ScreenAdapter {
 
         _stage.addActor(_logoImage);
         _stage.addActor(_layoutGroup);
-    }
 
+        Gdx.input.setInputProcessor(_stage);
+    }
     private void onUpdate() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             _menuButton.get(_checkedButtonIndex).setOver(false);
@@ -97,7 +130,6 @@ public class OptionsMenuScreen extends ScreenAdapter {
             }
         }
     }
-
     @Override
     public void render (float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);

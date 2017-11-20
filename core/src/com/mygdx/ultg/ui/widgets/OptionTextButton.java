@@ -31,10 +31,14 @@ public class OptionTextButton extends TextButton {
         this.optionLabel = label;
     }
 
+    public OptionWidget getOptionWidget() {
+        return optionWidget;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if(optionWidget != null) {
-            this.setText(this.staticText + "(" + optionWidget.getCurrentValue() + ")");
+            this.setText(this.staticText + " (" + optionWidget.getCurrentValue() + ")");
         }
         super.draw(batch, parentAlpha);
     }
