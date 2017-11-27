@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.ultg.MyGdxGame;
+import com.mygdx.ultg.world.managers.SkyboxManager;
 
 public class Level extends ScreenAdapter {
     MyGdxGame _game;
@@ -22,6 +23,8 @@ public class Level extends ScreenAdapter {
     TiledMap _tiledMap;
     OrthographicCamera _camera;
     TiledMapRenderer _tiledMapRenderer;
+
+    SkyboxManager _skyboxManager;
 
 
     public Level(MyGdxGame game) {
@@ -33,24 +36,34 @@ public class Level extends ScreenAdapter {
         float h = Gdx.graphics.getHeight();
 
         _camera = new OrthographicCamera();
-        _camera.setToOrtho(false,w,h);
+        _camera.setToOrtho(false, w, h);
         _camera.update();
-        _tiledMap = new TmxMapLoader().load("levels/demo_scene.tmx");
+        _tiledMap = new TmxMapLoader().load("levels/playground.tmx");
         _tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap);
+
+        _skyboxManager = new SkyboxManager(_camera, _tiledMap);
+
+        this.resize((int)w, (int)h);
     }
 
     private void update(float delta) {
+        float boost = 1f;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            boost = 60f;
+        }
+
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            _camera.translate(-Gdx.graphics.getDeltaTime() * 60f, 0);
+            _camera.translate(-Gdx.graphics.getDeltaTime() * 60f * boost, 0);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            _camera.translate(Gdx.graphics.getDeltaTime() * 60f, 0);
+            _camera.translate(Gdx.graphics.getDeltaTime() * 60f * boost, 0);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            _camera.translate(0, Gdx.graphics.getDeltaTime() * 60f);
+            _camera.translate(0, Gdx.graphics.getDeltaTime() * 60f * boost);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            _camera.translate(0, -Gdx.graphics.getDeltaTime() * 60f);
+            _camera.translate(0, -Gdx.graphics.getDeltaTime() * 60f * boost);
         }
     }
 
@@ -68,4 +81,12 @@ public class Level extends ScreenAdapter {
     }
 
 
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        _camera.setToOrtho(false, width, height);
+        float zoom = Math.abs(1f - (height/5000f));
+        if(zoom < 0.5f) zoom = 0.5f;
+        _camera.zoom = zoom;
+    }
 }
