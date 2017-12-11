@@ -4,9 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.ultg.entities.Settings;
-import com.mygdx.ultg.screens.game.Level;
-import com.mygdx.ultg.screens.menu.MainMenuScreen;
-import com.mygdx.ultg.screens.menu.OptionsMenuScreen;
+import com.mygdx.ultg.screens.GameScreen;
+import com.mygdx.ultg.screens.MainMenuScreen;
+import com.mygdx.ultg.screens.OptionsMenuScreen;
 
 import java.util.Stack;
 
@@ -40,7 +40,7 @@ public class MyGdxGame extends Game {
 	private Screen createScreen(EGameScreen gameScreen) {
 		switch (gameScreen) {
 			case PLAYMENU: {
-				return new Level(this);
+				return new GameScreen(this);
 			}
 			case MAINMENU: {
 				return new MainMenuScreen(this);
