@@ -21,8 +21,7 @@ public class MainMenuScreen extends AbstractGameScreen {
 
         _table = new Table();
         _table.setFillParent(true);
-
-        Image title = new Image(new Texture("menu/logo.png"));
+        Image title = new Image(new Texture(Gdx.files.internal("menu/logo.png")));
         TextButton playButton = new TextButton("Play", Utility.MENUUI_SKIN);
         TextButton optionsButton = new TextButton("Options", Utility.MENUUI_SKIN);
         TextButton exitButton = new TextButton("Exit",Utility.MENUUI_SKIN);

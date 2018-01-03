@@ -40,7 +40,7 @@ public class MyGdxGame extends Game {
 	private Screen createScreen(EGameScreen gameScreen) {
 		switch (gameScreen) {
 			case PLAYMENU: {
-				return new GameScreen(this);
+				return new GameScreen(this, "demo_level");
 			}
 			case MAINMENU: {
 				return new MainMenuScreen(this);
