@@ -127,7 +127,7 @@ public class GameScreen implements Screen {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
             fixtureDef.density = 1f;
-            //fixtureDef.friction = 5f;
+            fixtureDef.friction = 0.8f;
 
             Fixture fixture = objectBody.createFixture(fixtureDef);
             shape.dispose();
@@ -155,7 +155,7 @@ public class GameScreen implements Screen {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
             fixtureDef.density = 1f;
-            //fixtureDef.friction = 5f;
+            fixtureDef.friction = 0.8f;
 
             Fixture fixture = objectBody.createFixture(fixtureDef);
             shape.dispose();
