@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="20" tilewidth="32" tileheight="32" backgroundcolor="#231e18" nextobjectid="18">
+ <tileset firstgid="1" name="MapTileset1" tilewidth="32" tileheight="32" tilecount="16384">
+  <image source="../sprites/level1_tileset.png" width="4096" height="4096"/>
+ </tileset>
+ <tileset firstgid="16385" name="GeneralTileset" tilewidth="32" tileheight="32" tilecount="4096">
+  <image source="../sprites/general_tileset.png" width="2048" height="2048"/>
+ </tileset>
+ <layer name="FarBackground" width="200" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAGo+gAAB
+  </data>
+ </layer>
+ <layer name="Background" width="200" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt19dSVEkAgGEm5wCYBcEAggl9A19tcg5gBBPJCIq+oZ93K2VZXKyr6/Rf9dXUuek5Xae7z8zUVCgUCoVCoVAoFAqFQqFQKBQKhUKhUOj/XiQ2NRUlRpwESVKkyZAlR54CRUqUY7/77kOhX1vFGq9So06DJi3adOjSo8+AISPGYX+E/vIice8PYsRJkCRFmgxZcuQpUKREOf677z70XxYhyrdj8dujT5AkRZoMWXLkKVCkRJlpZpjlFKf/8fmtM5zlHOe5wEXmmOcSCyxymStc5RpLLHOdFVa5wU1ucZs7rHGXeyecc8VEq9So06BJizYduvToM2DIiHHYHxNVhSo16jRo0qJNhy49+gwYMmLMOhs84CGPjo3/mCc8ZZMtnvGcF7zkFdvssMse+7zmDW95x3s+cMAhH/nEEZ/5csI5RxwCUWLESZAkRZoMWXLkKVCkRDlxwi8J/RVFvECixIiTIEmKNBmy5MhToEiJMtPMMMspTke+H/+M67Oc4zwXuMgc81xigUUuc4WrXGOJZa6zwio3uMktbnOHNe5yL/LjOR6vYo1XqVGnQZMWbTp06dFnwJAR47A/JqqKNVWlRp0GTVq06dClR58BQ0aMWWeDBzzk0bE1+tj1E56yyRbPeM4LXvKKbXbYZY99XvOGt7zjPR844JCPfOKIz3w54f6I+AEZJUacBElSpMmQJUeeAkVKlJP//jMI/blF/PmIEiNOgiQp0mTIkiNPgSIlykwzwyynOB39fvwzrs9yjvNc4CJzzHOJBRa5zBWuco0llrnOCqvc4Ca3uM0d1rjLveiP53i8ijVepUadBk1atOnQpUefAUNGjMP+mKgq1lSVGnUaNGnRpkOXHn0GDBkxZp0NHvCQRzw+5glP2WSLZzznBS95xTY77LLHPq95w1ve8Z4PHHDIRz5xxGe+nHB/RFLOBGLESZAkRZoMWXLkKVCkRDn1a59H6M8qcj+YZKGfF70fTLLQz4vdDyZZ6Od9Bfw088Y=
+  </data>
+ </layer>
+ <layer name="Playground" width="200" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAGo+gAAB
+  </data>
+ </layer>
+ <objectgroup name="EnvColls">
+  <object id="1" name="Ground" type="BoxCollider" x="0" y="544" width="2048" height="96"/>
+  <object id="5" name="Ground" type="BoxCollider" x="2048" y="544" width="2048" height="96"/>
+  <object id="13" name="InvisibleWall" type="BoxCollider" x="0" y="32" width="32" height="512"/>
+ </objectgroup>
+ <objectgroup name="Spawners">
+  <object id="15" name="Player" x="288" y="448" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="Triggers"/>
+ <layer name="Foreground" width="200" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztz8EJADAMxLD7Ze4mi3eLlIIEHsAJAAAAAAAAAAAAAAAA7DiV9GJTr48BAOAvF4MfD4Y=
+  </data>
+ </layer>
+</map>
