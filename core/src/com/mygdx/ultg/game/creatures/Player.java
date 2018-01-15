@@ -91,9 +91,6 @@ public class Player extends Actor {
         feetFixtureDef.friction = 0.2f;
         Fixture feetFixture  = _body[BodyPart.FEET.ordinal()].createFixture(feetFixtureDef);
 
-        Gdx.app.log("MASS", "= " + feetFixture.getBody().getMass());
-
-
         RevoluteJointDef headToTorsoJointDef = new RevoluteJointDef();
         headToTorsoJointDef.bodyA = _body[BodyPart.HEAD.ordinal()];
         headToTorsoJointDef.bodyB = _body[BodyPart.TORSO.ordinal()];

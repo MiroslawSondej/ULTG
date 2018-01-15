@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="20" tilewidth="32" tileheight="32" backgroundcolor="#231e18" nextobjectid="18">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="36" tilewidth="32" tileheight="32" backgroundcolor="#231e18" nextobjectid="26">
  <tileset firstgid="1" name="MapTileset1" tilewidth="32" tileheight="32" tilecount="16384">
   <image source="../sprites/level1_tileset.png" width="4096" height="4096"/>
  </tileset>
  <tileset firstgid="16385" name="GeneralTileset" tilewidth="32" tileheight="32" tilecount="4096">
   <image source="../sprites/general_tileset.png" width="2048" height="2048"/>
  </tileset>
- <layer name="FarBackground" width="200" height="20">
+ <layer name="FarBackground" width="200" height="36">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAGo+gAAB
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAdwNwgAAB
   </data>
  </layer>
- <layer name="Background" width="200" height="20">
+ <layer name="Background" width="200" height="36">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
- <layer name="Playground" width="200" height="20">
+ <layer name="Playground" width="200" height="36">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAGo+gAAB
+   eJzt1LEJADAIAEEFi+w/cRYQWwvv4Ff4CAAAAAAAAAAAAACAXr45AO4o3wcAAAAAAAAAAAAAAAAAAFj3AXniAFU=
   </data>
  </layer>
  <objectgroup name="EnvColls">
   <object id="1" name="Ground" type="BoxCollider" x="0" y="544" width="2048" height="96"/>
   <object id="5" name="Ground" type="BoxCollider" x="2048" y="544" width="2048" height="96"/>
   <object id="13" name="InvisibleWall" type="BoxCollider" x="0" y="32" width="32" height="512"/>
+  <object id="19" name="Roof" type="BoxCollider" x="1408" y="454" width="256" height="10"/>
+  <object id="22" name="RoadColumn" type="BoxCollider" x="1066" y="512" width="12" height="32"/>
  </objectgroup>
  <objectgroup name="Spawners">
-  <object id="15" name="Player" x="288" y="448" width="32" height="32"/>
+  <object id="15" name="Player" type="Player" x="288" y="448" width="32" height="32"/>
+  <object id="18" name="Paper #1" type="Paper" x="672" y="480" width="32" height="32"/>
+  <object id="20" name="Paper #2" type="Paper" x="1472" y="416" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Triggers"/>
- <layer name="Foreground" width="200" height="20">
+ <layer name="Foreground" width="200" height="36">
   <data encoding="base64" compression="zlib">
-   eJztz8EJADAMxLD7Ze4mi3eLlIIEHsAJAAAAAAAAAAAAAAAA7DiV9GJTr48BAOAvF4MfD4Y=
+   eJztzzENADAMBLHfgrsJ8ZKo0sWWDsAlAAAAAAAAAAAAAAAAsONU0otN/T4GAAAAAAAAAAAAAAAAAAB45wLclw+G
   </data>
  </layer>
 </map>

@@ -13,5 +13,5 @@ public final class Utility {
 
     public final static String SETTINGS_FILE_NAME = "settings.xml";
 
-    public static boolean DEBUG_MODE = true;
+    public static boolean DEBUG_MODE = false;
 }

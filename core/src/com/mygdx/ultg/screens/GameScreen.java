@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -23,6 +24,7 @@ import com.mygdx.ultg.game.ParallaxSkybox;
 import com.mygdx.ultg.game.ParallaxSkyboxController;
 import com.mygdx.ultg.game.PhysicsUtility;
 import com.mygdx.ultg.game.creatures.Player;
+import com.mygdx.ultg.game.items.Paper;
 
 import java.io.File;
 
@@ -102,7 +104,7 @@ public class GameScreen implements Screen {
         }
 
         // Create player
-        MapLayer spawnPoints = (MapLayer)_tiledMap.getLayers().get("Spawners");
+        /*MapLayer spawnPoints = (MapLayer)_tiledMap.getLayers().get("Spawners");
         MapObject playerObject = spawnPoints.getObjects().get("Player");
 
         float playerX = 0.0f;
@@ -115,6 +117,38 @@ public class GameScreen implements Screen {
             _stage.addActor(_player);
 
             _isCameraAttachedToPlayer = true;
+        }*/
+        float playerX = 0.0f;
+        float playerY = 0.0f;
+
+        // Create items
+        MapLayer spawnPoints = (MapLayer)_tiledMap.getLayers().get("Spawners");
+        MapObjects mapSpawners = spawnPoints.getObjects();
+        for(int i = 0; i < mapSpawners.getCount(); i++) {
+            MapObject mapObject = mapSpawners.get(i);
+
+            if(mapObject != null) {
+                // Player
+                if(mapObject.getName().equals("Player")) {
+                    playerX = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(mapObject.getProperties().get("x").toString()));
+                    playerY = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(mapObject.getProperties().get("y").toString()));
+                    _player = new Player(_world, playerX, playerY);
+                    _stage.addActor(_player);
+
+                    _isCameraAttachedToPlayer = true;
+                }
+                // Paper
+                else if("Paper".equals(mapObject.getProperties().get("type", String.class))) {
+                    float objectX, objectY;
+
+                    objectX = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(mapObject.getProperties().get("x").toString()));
+                    objectY = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(mapObject.getProperties().get("y").toString()));
+
+                    Paper paper = new Paper(_world, objectX, objectY);
+                    _stage.addActor(paper);
+                }
+            }
+
         }
         // --- End parsing ---
 
@@ -194,6 +228,7 @@ public class GameScreen implements Screen {
             _camera.position.y = _player.getY();
         }
         _camera.update();
+
         _parallaxSkyboxController.update(_camera.position.x, _camera.position.y);
 
         // Draw
@@ -208,6 +243,7 @@ public class GameScreen implements Screen {
         _parallaxSkyboxController.render(_stage.getBatch());
         _tiledMapRenderer.renderTileLayer((TiledMapTileLayer)_tiledMap.getLayers().get("FarBackground"));
         _tiledMapRenderer.renderTileLayer((TiledMapTileLayer)_tiledMap.getLayers().get("Background"));
+        _tiledMapRenderer.renderTileLayer((TiledMapTileLayer)_tiledMap.getLayers().get("Playground"));
         _stage.getBatch().end();
 
         _stage.draw();
