@@ -1,10 +1,12 @@
 package com.mygdx.ultg.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -18,6 +20,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.ultg.MyGdxGame;
 import com.mygdx.ultg.Utility;
 import com.mygdx.ultg.game.ParallaxSkybox;
@@ -81,11 +85,14 @@ public class GameScreen implements Screen {
             }
             _game.leaveCurrentScreen();
         }
-        _tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap, 1f/PhysicsUtility.PIXELS_PER_METER, _stage.getBatch());
+        _tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap,
+                1f/PhysicsUtility.PIXELS_PER_METER, _stage.getBatch());
 
         // Setup inputs
         _multiplexer = new InputMultiplexer();
         _multiplexer.addProcessor(_stage);
+
+        createUI();
     }
     private boolean loadMap(String levelName) {
         _tiledMap = new TmxMapLoader().load("gameworld/levels/level_1.tmx");
@@ -102,22 +109,6 @@ public class GameScreen implements Screen {
                 createSolidCollider(mapObject);
             }
         }
-
-        // Create player
-        /*MapLayer spawnPoints = (MapLayer)_tiledMap.getLayers().get("Spawners");
-        MapObject playerObject = spawnPoints.getObjects().get("Player");
-
-        float playerX = 0.0f;
-        float playerY = 0.0f;
-
-        if(playerObject != null) {
-            playerX = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(playerObject.getProperties().get("x").toString()));
-            playerY = PhysicsUtility.convertPixelsToMeters(Float.parseFloat(playerObject.getProperties().get("y").toString()));
-            _player = new Player(_world, playerX, playerY);
-            _stage.addActor(_player);
-
-            _isCameraAttachedToPlayer = true;
-        }*/
         float playerX = 0.0f;
         float playerY = 0.0f;
 
@@ -148,11 +139,9 @@ public class GameScreen implements Screen {
                     _stage.addActor(paper);
                 }
             }
-
         }
+
         // --- End parsing ---
-
-
         Texture skyboxTextureBackground = new Texture("gameworld/sprites/skyboxes/skybox1.png");
         ParallaxSkybox parallaxSkyboxBackground = new ParallaxSkybox(playerX, playerY, skyboxTextureBackground, 0.01f);
         _parallaxSkyboxController.addParallaxSkybox(parallaxSkyboxBackground);
@@ -163,7 +152,6 @@ public class GameScreen implements Screen {
 
         return true;
     }
-
     private void createSolidCollider(MapObject mapObject) {
         String objectType = mapObject.getProperties().get("type").toString();
         if(objectType.equals("BoxCollider")) {
@@ -183,7 +171,7 @@ public class GameScreen implements Screen {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
             fixtureDef.density = 1f;
-            fixtureDef.friction = 0.8f;
+            fixtureDef.friction = 0.95f;
 
             Fixture fixture = objectBody.createFixture(fixtureDef);
             shape.dispose();
@@ -211,7 +199,7 @@ public class GameScreen implements Screen {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
             fixtureDef.density = 1f;
-            fixtureDef.friction = 0.8f;
+            fixtureDef.friction = 0.95f;
 
             Fixture fixture = objectBody.createFixture(fixtureDef);
             shape.dispose();
@@ -256,35 +244,34 @@ public class GameScreen implements Screen {
             _box2DDebugRenderer.render(_world, _camera.combined.cpy().scale(1, 1, 1));
         }
     }
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(_multiplexer);
     }
-
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
     }
-
     @Override
     public void resize(int width, int height) {
-
+        _stage.getViewport().update(width, height, true);
+        _camera.zoom = 0.02f;
     }
-
     @Override
     public void pause() {
 
     }
-
     @Override
     public void resume() {
 
     }
-
     @Override
     public void dispose() {
         _stage.dispose();
         _world.dispose();
+    }
+
+    void createUI() {
+
     }
 }

@@ -25,9 +25,6 @@ public class MyGdxGame extends Game {
 	public void create () {
 		// Load settings
 		_gameSettings = SettingsManager.load(Utility.SETTINGS_FILE_NAME);
-		Gdx.app.log("", "Settings loaded:");
-		Gdx.app.log("SETTINGS", "\t Volume: " + _gameSettings.getVolume());
-		Gdx.app.log("SETTINGS", "\t Language: " + _gameSettings.getLanguage());
 
 		// Create starting screen
 		this.enterScreen(EGameScreen.MAINMENU);
@@ -53,7 +50,6 @@ public class MyGdxGame extends Game {
 			}
 		}
 	}
-
 	public void enterScreen(EGameScreen gameScreen) {
 		if(this.getScreen() != null) {
 			_screenStack.push(this.getScreen());
